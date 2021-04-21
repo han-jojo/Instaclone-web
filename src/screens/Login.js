@@ -1,8 +1,10 @@
-function Login({ setIsLoggedIn }) {
+import { isLoggedInVar } from "../apollo";
+
+function Login() {
   return (
     <div>
       <h1>Login</h1>
-      <button onClick={() => setIsLoggedIn(true)}>로그인</button>
+      <button onClick={() => isLoggedInVar(true)}>로그인</button>
     </div>
   );
 }
