@@ -30,7 +30,6 @@ function Login() {
   const onSubmitInvalid = (data) => {
     console.log(data, "invalid");
   };
-
   return (
     <AuthLayout>
       <PageTitle title="Login" />
@@ -49,8 +48,8 @@ function Login() {
             placeholder="Username"
           />
           <Input
-            reg={register({
-              required: "Password is required",
+            ref={register({
+              required: "Password is required.",
             })}
             name="password"
             type="password"
