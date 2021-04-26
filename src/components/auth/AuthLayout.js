@@ -19,11 +19,11 @@ const Wrapper = styled.div`
 
 const Footer = styled.footer`
   margin-top: 20px;
-`
+`;
 
 const DarkModeBtn = styled.span`
   cursor: pointer;
-`
+`;
 
 function AuthLayout({ children }) {
   const darkMode = useReactiveVar(darkModeVar);

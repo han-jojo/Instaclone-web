@@ -42,12 +42,20 @@ const LOGIN_MUTATION = gql`
 
 function Login() {
   const location = useLocation();
-  const { register, handleSubmit, errors, formState, getValues, setError, clearErrors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    formState,
+    getValues,
+    setError,
+    clearErrors,
+  } = useForm({
     mode: "onChange",
     defaultValues: {
       username: location?.state?.username || "",
       password: location?.state?.password || "",
-    }
+    },
   });
   const onCompleted = (data) => {
     const {
@@ -112,7 +120,11 @@ function Login() {
             hasError={Boolean(errors?.password?.message)}
           />
           <FormError message={errors?.password?.message} />
-          <Button type="submit" value={loading ? "Loading..." : "Log in"} disabled={!formState.isValid} />
+          <Button
+            type="submit"
+            value={loading ? "Loading..." : "Log in"}
+            disabled={!formState.isValid}
+          />
           <FormError message={errors?.result?.message} />
         </form>
         <Separator />

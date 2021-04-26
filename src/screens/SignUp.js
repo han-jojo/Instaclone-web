@@ -33,7 +33,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
     $email: String!
     $password: String!
   ) {
-    createAccount (
+    createAccount(
       firstName: $firstName
       lastName: $lastName
       username: $username
@@ -47,7 +47,6 @@ const CREATE_ACCOUNT_MUTATION = gql`
 `;
 
 function SingUp() {
-
   const history = useHistory();
   const onCompleted = (data) => {
     const { username, password } = getValues();
@@ -63,7 +62,9 @@ function SingUp() {
       password,
     });
   };
-  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, { onCompleted, });
+  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
+    onCompleted,
+  });
   const { register, handleSubmit, errors, formState, getValues } = useForm({
     mode: "onChange",
   });
@@ -89,46 +90,46 @@ function SingUp() {
           </Subtitle>
         </HeaderContainer>
         <form onSubmit={handleSubmit(onSubmitValid)}>
-          <Input 
+          <Input
             ref={register({
               required: "First Name is required.",
             })}
             name="firstName"
-            type="text" 
-            placeholder="First Name" 
+            type="text"
+            placeholder="First Name"
           />
-          <Input 
+          <Input
             ref={register}
             name="lastName"
-            type="text" 
-            placeholder="Last Name" 
+            type="text"
+            placeholder="Last Name"
           />
-          <Input 
+          <Input
             ref={register({
               required: "Email is required.",
             })}
             name="email"
-            type="text" 
-            placeholder="Email" 
+            type="text"
+            placeholder="Email"
           />
-          <Input 
+          <Input
             ref={register({
               required: "Username is required.",
             })}
             name="username"
-            type="text" 
-            placeholder="Username" 
+            type="text"
+            placeholder="Username"
           />
-          <Input 
+          <Input
             ref={register({
               required: "Password is required.",
             })}
             name="password"
-            type="password" 
-            placeholder="Password" 
+            type="password"
+            placeholder="Password"
           />
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             value={loading ? "Loading..." : "Sign up"}
             disabled={!formState.isValid || loading}
           />
