@@ -1,5 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
-import { faBookmark, faComment, faHeart, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
+import {
+  faBookmark,
+  faComment,
+  faHeart,
+  faPaperPlane,
+} from "@fortawesome/free-regular-svg-icons";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { logUserOut } from "../apollo";
@@ -20,14 +26,16 @@ const FEED_QUERY = gql`
       comments
       createdAt
       isMine
+      isLiked
     }
   }
 `;
 
 const PhotoContainer = styled.div`
   background-color: white;
+  border-radius: 4px;
   border: 1px solid ${(props) => props.theme.borderColor};
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   max-width: 615px;
 `;
 
@@ -35,6 +43,7 @@ const PhotoHeader = styled.div`
   padding: 15px;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgb(239, 239, 239);
 `;
 
 const Username = styled(FatText)`
@@ -43,20 +52,24 @@ const Username = styled(FatText)`
 
 const PhotoFile = styled.img`
   min-width: 100%;
+  max-width: 100%;
 `;
 
 const PhotoData = styled.div`
-  padding: 15px;
+  padding: 12px 15px;
 `;
 
 const PhotoActions = styled.div`
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
 
   div {
     display: flex;
     align-items: center;
+  }
+  svg {
+    font-size: 20px;
   }
 `;
 
@@ -79,28 +92,31 @@ function Home() {
             <Avatar lg url={photo.user.avatar} />
             <Username>{photo.user.username}</Username>
           </PhotoHeader>
-        <PhotoFile src={photo.file} />
-        <PhotoData>
-          <PhotoActions>
-            <div>
-              <PhotoAction>
-                <FontAwesomeIcon size={"2x"} icon={faHeart} />
-              </PhotoAction>
-              <PhotoAction>
-                <FontAwesomeIcon size={"2x"} icon={faComment} />
-              </PhotoAction>
-              <PhotoAction>
-                <FontAwesomeIcon size={"2x"} icon={faPaperPlane} />
-              </PhotoAction>
-            </div>
-            <div>
-              <FontAwesomeIcon size={"2px"} icon={faBookmark} />
-            </div>
-          </PhotoActions>
-          <Likes>
-            {photo.likes === 1 ? "1 like" : `${photo.likes} likes`}
-          </Likes>
-        </PhotoData>
+          <PhotoFile src={photo.file} />
+          <PhotoData>
+            <PhotoActions>
+              <div>
+                <PhotoAction>
+                  <FontAwesomeIcon
+                    style={{ color: photo.isLiked ? "tomato" : "inherit" }}
+                    icon={photo.isLiked ? solidHeart : faHeart}
+                  />
+                </PhotoAction>
+                <PhotoAction>
+                  <FontAwesomeIcon icon={faComment} />
+                </PhotoAction>
+                <PhotoAction>
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </PhotoAction>
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faBookmark} />
+              </div>
+            </PhotoActions>
+            <Likes>
+              {photo.likes === 1 ? "1 like" : `${photo.likes} likes`}
+            </Likes>
+          </PhotoData>
         </PhotoContainer>
       ))}
     </div>
