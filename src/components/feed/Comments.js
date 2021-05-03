@@ -5,11 +5,10 @@ import Comment from "./Comment";
 const CommentsContainer = styled.div`
   margin-top: 20px;
 `;
-
 const CommentCount = styled.span`
   opacity: 0.7;
   margin: 10px 0px;
-  display: flex;
+  display: block;
   font-weight: 600;
   font-size: 10px;
 `;
@@ -32,7 +31,7 @@ function Comments({ author, caption, commentNumber, comments }) {
   );
 }
 
-CommentsContainer.propTypes = {
+Comments.propTypes = {
   author: PropTypes.string.isRequired,
   caption: PropTypes.string,
   commentNumber: PropTypes.number.isRequired,

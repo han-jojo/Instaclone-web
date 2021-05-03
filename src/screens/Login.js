@@ -123,7 +123,7 @@ function Login() {
           <Button
             type="submit"
             value={loading ? "Loading..." : "Log in"}
-            disabled={!formState.isValid}
+            disabled={!formState.isValid || loading}
           />
           <FormError message={errors?.result?.message} />
         </form>

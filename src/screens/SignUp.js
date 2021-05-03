@@ -28,7 +28,7 @@ const Subtitle = styled(FatLink)`
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
     $firstName: String!
-    $lastName: String!
+    $lastName: String
     $username: String!
     $email: String!
     $password: String!
@@ -51,13 +51,13 @@ function SingUp() {
   const onCompleted = (data) => {
     const { username, password } = getValues();
     const {
-      createAccount: { ok, error },
+      createAccount: { ok },
     } = data;
     if (!ok) {
       return;
     }
     history.push(routes.home, {
-      message: "Account created. Please log in",
+      message: "Account created. Please log in.",
       username,
       password,
     });
@@ -65,7 +65,7 @@ function SingUp() {
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted,
   });
-  const { register, handleSubmit, errors, formState, getValues } = useForm({
+  const { register, handleSubmit, formState, getValues } = useForm({
     mode: "onChange",
   });
   const onSubmitValid = (data) => {
@@ -78,7 +78,6 @@ function SingUp() {
       },
     });
   };
-
   return (
     <AuthLayout>
       <PageTitle title="Sign up" />
@@ -100,9 +99,9 @@ function SingUp() {
           />
           <Input
             ref={register}
-            name="lastName"
             type="text"
             placeholder="Last Name"
+            name="lastName"
           />
           <Input
             ref={register({

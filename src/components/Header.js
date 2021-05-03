@@ -34,6 +34,14 @@ const Icon = styled.span`
   margin-left: 15px;
 `;
 
+const Btn = styled.span`
+  background-color: ${(props) => props.theme.accent};
+  color: white;
+  border-radius: 4px;
+  padding: 5px 15px;
+  font-weight: 600;
+`;
+
 const Button = styled.span`
   background-color: ${(props) => props.theme.accent};
   border-radius: 4px;
@@ -43,8 +51,8 @@ const Button = styled.span`
 `;
 
 const IconsContainer = styled.div`
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
 function Header() {
@@ -57,7 +65,7 @@ function Header() {
           <FontAwesomeIcon icon={faInstagram} size="2x" />
         </Column>
         <Column>
-          {isLoggedInVar ? (
+          {isLoggedIn ? (
             <IconsContainer>
               <Icon>
                 <FontAwesomeIcon icon={faHome} size="lg" />
@@ -66,7 +74,7 @@ function Header() {
                 <FontAwesomeIcon icon={faCompass} size="lg" />
               </Icon>
               <Icon>
-                  <Avatar url={data?.me?.avatar} />
+                <Avatar url={data?.me?.avatar} />
               </Icon>
             </IconsContainer>
           ) : (
