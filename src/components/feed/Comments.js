@@ -40,7 +40,7 @@ function Comments({ photoId, author, caption, commentNumber, comments }) {
         payload,
       },
     });
-    setValue("payload");
+    setValue("payload", "");
   };
   return (
     <CommentsContainer>
@@ -59,9 +59,9 @@ function Comments({ photoId, author, caption, commentNumber, comments }) {
         <form onSubmit={handleSubmit(onValid)}>
           <input
             name="payload"
-            reg={register({ required: true })}
+            ref={register({ required: true })}
             type="text"
-            placeholder="Write a Comment..."
+            placeholder="Write a comment..."
           />
         </form>
       </div>
