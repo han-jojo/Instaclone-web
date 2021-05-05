@@ -44,32 +44,48 @@ function Comments({ photoId, author, caption, commentNumber, comments }) {
   const { data: userData } = useUser();
   const { register, handleSubmit, setValue, getValues } = useForm();
   const createCommentUpdate = (cache, result) => {
-    
     const { payload } = getValues();
     setValue("payload", "");
-    
+
     const {
       data: {
         createComment: { ok, id },
       },
     } = result;
 
-    if(ok && userData?.me) {
+    if (ok && userData?.me) {
       const newComment = {
         __typename: "Comment",
         createdAt: Date.now() + "",
         id,
-        isMine:true,
+        isMine: true,
         payload,
         user: {
-          ...userData.me
+          ...userData.me,
         },
       };
+
+      const newCacheComment = cache.writeFragment({
+        data: newComment,
+        fragment: gql`
+          fragment BSName on Comment {
+            id
+            createdAt
+            isMine
+            payload
+            user {
+              username
+              avatar
+            }
+          }
+        `,
+      });
+
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
           comments(prev) {
-            return [...prev, newComment];
+            return [...prev, newCacheComment];
           },
           commentNumber(prev) {
             return prev + 1;
