@@ -37,7 +37,7 @@ function Comment({ id, photoId, author, payload, isMine }) {
     if (ok) {
       cache.evict({ id: `Comment:${id}` });
       cache.modify({
-        id:`Photo:${photoId}`,
+        id: `Photo:${photoId}`,
         fields: {
           commentsNumber(prev) {
             return prev - 1;
@@ -60,7 +60,9 @@ function Comment({ id, photoId, author, payload, isMine }) {
 
   return (
     <CommentContainer>
-      <FatText>{author}</FatText>
+      <Link to={`/users/${author}`}>
+        <FatText>{author}</FatText>
+      </Link>
       <CommentCaption>
         {payload.split(" ").map((word, index) =>
           /#[\w]+/.test(word) ? (
