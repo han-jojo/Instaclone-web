@@ -6,8 +6,8 @@ import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from "../fragments";
 const FEED_QUERY = gql`
   query seeFeed {
     seeFeed {
+      ...PhotoFragment
       user {
-        ...PhotoFragment
         username
         avatar
       }
