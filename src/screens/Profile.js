@@ -231,7 +231,7 @@ function Profile() {
       return <ProfileBtn onClick={followUser}>Follow</ProfileBtn>;
     }
   };
-  
+
   return (
     <div>
       <PageTitle
@@ -262,7 +262,9 @@ function Profile() {
           </Row>
           <Row>
             <Name>
-              {data?.seeProfile?.firstName} {data?.seeProfile?.lastName}
+              {data?.seeProfile?.firstName}
+              {"  "}
+              {data?.seeProfile?.lastName}
             </Name>
           </Row>
           <Row>{data?.seeProfile?.bio}</Row>

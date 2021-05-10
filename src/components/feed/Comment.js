@@ -1,9 +1,9 @@
+import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FatText } from "../shared";
 import { Link } from "react-router-dom";
-import { gql, useMutation } from "@apollo/client";
 
 const DELETE_COMMENT_MUTATION = gql`
   mutation deleteComment($id: Int!) {
@@ -13,7 +13,9 @@ const DELETE_COMMENT_MUTATION = gql`
   }
 `;
 
-const CommentContainer = styled.div``;
+const CommentContainer = styled.div`
+  margin-bottom: 7px;
+`;
 const CommentCaption = styled.span`
   margin-left: 10px;
   a {
@@ -26,38 +28,34 @@ const CommentCaption = styled.span`
   }
 `;
 
-function Comment({ id, photoId, author, payload, isMine }) {
+function Comment({ id, photoId, isMine, author, payload }) {
   const updateDeleteComment = (cache, result) => {
     const {
       data: {
-        deleteComment: { ok, error },
+        deleteComment: { ok },
       },
     } = result;
-
     if (ok) {
       cache.evict({ id: `Comment:${id}` });
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
-          commentsNumber(prev) {
+          commentNumber(prev) {
             return prev - 1;
           },
         },
       });
     }
   };
-
   const [deleteCommentMutation] = useMutation(DELETE_COMMENT_MUTATION, {
     variables: {
       id,
     },
     update: updateDeleteComment,
   });
-
   const onDeleteClick = () => {
     deleteCommentMutation();
   };
-
   return (
     <CommentContainer>
       <Link to={`/users/${author}`}>
@@ -70,7 +68,7 @@ function Comment({ id, photoId, author, payload, isMine }) {
               <Link to={`/hashtags/${word}`}>{word}</Link>{" "}
             </React.Fragment>
           ) : (
-            <React.Fragment key={index}>{word}</React.Fragment>
+            <React.Fragment key={index}>{word} </React.Fragment>
           )
         )}
       </CommentCaption>
