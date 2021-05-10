@@ -1,5 +1,5 @@
-import { gql, useApolloClient, useQuery, useMutation } from "@apollo/client";
-import { faComment, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
+import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
